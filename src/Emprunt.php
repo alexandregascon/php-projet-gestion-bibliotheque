@@ -1,6 +1,7 @@
 <?php
 
 class Emprunt{
+    private int $id;
     private DateTime $dateEmrpunt;
     private DateTime $dateRetourEstimee;
     private DateTime $dateRetour;
