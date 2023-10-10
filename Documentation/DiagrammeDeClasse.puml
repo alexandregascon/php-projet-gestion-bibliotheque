@@ -1,0 +1,55 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+abstract class Medias{
+    #titre : string
+}
+
+class Livre{
+    -isbn : string
+    -auteur : string
+    -nombrePages : int
+    -statut : string
+    -dateCreation : dateTime
+    -duréeEmprunt : int
+}
+
+class BluRay{
+    -réalisateur : string
+    -durée : string
+    -annéeSortie : string
+    -duréeEmprunt : int
+    -statut : string
+    -dateCreation : dateTime
+}
+
+class Magazine{
+    -numéro : string
+    -datePublication : dateTime
+    -duréeEmprunt : int
+    -statut : string
+    -dateCreation : dateTime
+}
+
+class Adherents{
+    -numAdherent : string
+    -prenom : string
+    -nom : string
+    -mail : string
+    -dateAdhesion : string
+}
+
+class Emprunts{
+    -dateEmprunt : dateTime
+    -dateRetourEstimée : dateTime
+    -dateRetour : dateTime
+}
+
+Medias <-- Livre : "Hérite de"
+Medias <-- BluRay : "Hérite de"
+Medias <-- Magazine : "Hérite de"
+Medias "1..1"<-- "1..*      " Emprunts : "Appartient"
+Adherents "1..1 " <-- "1..* " Emprunts : "Possède"
+
+@enduml
