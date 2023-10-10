@@ -4,14 +4,14 @@ skinparam classAttributeIconSize 0
 
 abstract class Medias{
     #titre : string
+    #statut : string
+    #dateCreation : dateTime
 }
 
 class Livre{
     -isbn : string
     -auteur : string
     -nombrePages : int
-    -statut : string
-    -dateCreation : dateTime
     -duréeEmprunt : int
 }
 
@@ -20,16 +20,12 @@ class BluRay{
     -durée : string
     -annéeSortie : string
     -duréeEmprunt : int
-    -statut : string
-    -dateCreation : dateTime
 }
 
 class Magazine{
     -numéro : string
     -datePublication : dateTime
     -duréeEmprunt : int
-    -statut : string
-    -dateCreation : dateTime
 }
 
 class Adherents{
@@ -46,9 +42,9 @@ class Emprunts{
     -dateRetour : dateTime
 }
 
-Medias <-- Livre : "Hérite de"
-Medias <-- BluRay : "Hérite de"
-Medias <-- Magazine : "Hérite de"
+Medias <|-- Livre : "Hérite de"
+Medias <|-- BluRay : "Hérite de"
+Medias <|-- Magazine : "Hérite de"
 Medias "1..1"<-- "1..*      " Emprunts : "Appartient"
 Adherents "1..1 " <-- "1..* " Emprunts : "Possède"
 
