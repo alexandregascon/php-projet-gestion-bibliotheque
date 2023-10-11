@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class BluRay extends \App\Medias{
     private string $realisateur;
     private string $duree;

@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 use App\Medias;
 
 class Livre extends Medias{

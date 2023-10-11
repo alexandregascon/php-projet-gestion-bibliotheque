@@ -1,8 +1,10 @@
 <?php
 
+namespace App;
+
 class Magazine extends \App\Medias{
     private string $num;
-    private DateTime $datePublication;
+    private \DateTime $datePublication;
     private int $dureeEmprunt;
 
     public function __construct()
@@ -28,17 +30,17 @@ class Magazine extends \App\Medias{
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
-    public function getDatePublication(): DateTime
+    public function getDatePublication(): \DateTime
     {
         return $this->datePublication;
     }
 
     /**
-     * @param DateTime $datePublication
+     * @param \DateTime $datePublication
      */
-    public function setDatePublication(DateTime $datePublication): void
+    public function setDatePublication(\DateTime $datePublication): void
     {
         $this->datePublication = $datePublication;
     }
