@@ -1,7 +1,7 @@
 <?php
 
 class Adherent{
-    private int $id;
+    private int $idAdherent;
     private string $numAdherent;
     private string $prenom;
     private string $nom;

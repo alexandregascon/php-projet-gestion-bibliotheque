@@ -1,7 +1,7 @@
 <?php
 
 class Emprunt{
-    private int $id;
+    private int $idEmprunt;
     private DateTime $dateEmrpunt;
     private DateTime $dateRetourEstimee;
     private DateTime $dateRetour;
