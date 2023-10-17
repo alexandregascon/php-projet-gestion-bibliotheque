@@ -16,9 +16,9 @@ class Emprunt{
 
     public function empruntEnCours() : bool{
         if(isset($this->dateRetour)){
-            return 0;
+            return false;
         }else{
-            return 1;
+            return true;
         }
     }
 
@@ -26,10 +26,10 @@ class Emprunt{
         $date = new \DateTime();
         $date = $date->format("d/m/Y");
         $this->dateRetourEstimee = date_modify(new \DateTime(),"-1 days");
-        if($this->empruntEnCours() == 1 and $this->dateRetourEstimee->format("d/m/Y") < $date){
-            return 1;
+        if($this->empruntEnCours() == true and $this->dateRetourEstimee->format("d/m/Y") < $date){
+            return true;
         }else{
-            return 0;
+            return false;
         }
     }
 
