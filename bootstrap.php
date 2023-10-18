@@ -10,7 +10,7 @@ require_once "vendor/autoload.php";
 // On lui passe le dossier de base des entités
 // On lui précise qu'on utilise les attributs pour le mapping
 $config = ORMSetup::createAttributeMetadataConfiguration(
-    paths: array(__DIR__."/src"),
+    paths: array(__DIR__ . "/src"),
     isDevMode: true,
 );
 

@@ -2,12 +2,27 @@
 
 namespace App;
 
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+
+#[Entity]
 class Adherent{
+    #[Id]
+    #[Column(type: Types::INTEGER)]
+    #[GeneratedValue]
     private int $idAdherent;
+    #[Column(type: Types::STRING, length: 9)]
     private string $numAdherent;
+    #[Column(type: Types::STRING,length: 80)]
     private string $prenom;
+    #[Column(type: Types::STRING,length: 80)]
     private string $nom;
+    #[Column(type: Types::STRING,length: 80)]
     private string $mail;
+    #[Column(type: Types::STRING,length: 4)]
     private string $dateAdhesion;
 
     public function __construct(){
