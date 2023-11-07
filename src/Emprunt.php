@@ -14,19 +14,14 @@ class Emprunt{
     {
     }
 
-    public function empruntEnCours() : bool{
-        if(isset($this->dateRetour)){
-            return false;
-        }else{
-            return true;
-        }
+    public function empruntRendu() : bool{
+        return isset($this->dateRetour);
     }
 
     public function empruntEnRetard() : bool{
         $date = new \DateTime();
         $date = $date->format("d/m/Y");
-        $this->dateRetourEstimee = date_modify(new \DateTime(),"-1 days");
-        if($this->empruntEnCours() == true and $this->dateRetourEstimee->format("d/m/Y") < $date){
+        if(!$this->empruntRendu() and strtotime($this->dateRetourEstimee->format("d/m/Y")) < strtotime($date)){
             return true;
         }else{
             return false;

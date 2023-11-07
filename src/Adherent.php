@@ -22,8 +22,8 @@ class Adherent{
     private string $nom;
     #[Column(type: Types::STRING,length: 80)]
     private string $mail;
-    #[Column(type: Types::STRING,length: 4)]
-    private string $dateAdhesion;
+    #[Column(type: "datetime")]
+    private \DateTime $dateAdhesion;
 
     public function __construct(){
     }
@@ -109,17 +109,17 @@ class Adherent{
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDateAdhesion(): string
+    public function getDateAdhesion(): \DateTime
     {
         return $this->dateAdhesion;
     }
 
     /**
-     * @param string $dateAdhesion
+     * @param \DateTime $dateAdhesion
      */
-    public function setDateAdhesion(string $dateAdhesion): void
+    public function setDateAdhesion(\DateTime $dateAdhesion): void
     {
         $this->dateAdhesion = $dateAdhesion;
     }
