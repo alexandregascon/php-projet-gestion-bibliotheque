@@ -2,7 +2,10 @@
 
 namespace App\UserStories\CreerAdherent;
 
+include_once "src/Services/EmailExistant.php";
+
 use App\Adherent;
+use App\Services\EmailExistant;
 use App\Services\GenerateurNumeroAdherent;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Assert;
@@ -27,28 +30,37 @@ class CreerAdherent
     }
 
 
-    public function execute(CreerAdherentRequete $requete) :  bool {
+    public function execute(CreerAdherentRequete $requete): bool
+    {
 
         // Valider les données en entrées (de la requête)
-        $this->validateur;
+        if (count($this->validateur->validate($requete)) == 0) {
 
-        // Vérifier que l'email n'existe pas déjà
+            // Vérifier que l'email n'existe pas déjà
+            $emailVerif = new EmailExistant();
+            try {
+                $emailVerif->verifier($requete,$this->entityManager);
+            }catch(\Exception $e) {
+                echo $e->getMessage();
+            }
+            // Générer un numéro d'adhérent au format AD-999999
+            $numeroAdherent = $this->generateurNumeroAdherent->generer();
+            // Vérifier que le numéro n'existe pas déjà
 
-        // Générer un numéro d'adhérent au format AD-999999
-        $numeroAdherent = $this->generateurNumeroAdherent->generer();
-        // Vérifier que le numéro n'existe pas déjà
+            // Créer l'adhérent
+            $adherent = new Adherent();
+            $adherent->setNumAdherent($numeroAdherent);
+            $adherent->setPrenom($requete->prenom);
+            $adherent->setNom($requete->nom);
+            $adherent->setMail($requete->mail);
+            $adherent->setDateAdhesion(new \DateTime());
+            // Enregistrer l'adhérent en base de données
+            $this->entityManager->persist($adherent);
+            $this->entityManager->flush();
 
-        // Créer l'adhérent
-        $adherent = new Adherent();
-        $adherent->setNumAdherent($numeroAdherent);
-        $adherent->setPrenom($requete->prenom);
-        $adherent->setNom($requete->nom);
-        $adherent->setMail($requete->mail);
-        $adherent->setDateAdhesion(new \DateTime());
-        // Enregistrer l'adhérent en base de données
-        $this->entityManager->persist($adherent);
-        $this->entityManager->flush();
-
-        return true;
+            return true;
+            }else{
+                return false;
+            }
+        }
     }
-}

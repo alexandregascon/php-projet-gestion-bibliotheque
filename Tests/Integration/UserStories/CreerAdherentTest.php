@@ -2,7 +2,10 @@
 
 namespace Tests\Integration\UserStories;
 
+include_once "src/Services/EmailExistant.php";
+
 use App\Adherent;
+use App\Services\EmailExistant;
 use App\Services\GenerateurNumeroAdherent;
 use App\UserStories\CreerAdherent\CreerAdherent;
 use App\UserStories\CreerAdherent\CreerAdherentRequete;
@@ -45,7 +48,10 @@ class CreerAdherentTest extends TestCase
         // Création du générateur
         $this->generateur = new GenerateurNumeroAdherent();
         // Création du valdateur
-        $this->validateur = (new ValidatorBuilder())->enableAnnotationMapping()->getValidator();
+        $this->validateur = Validation::createValidatorBuilder()
+            ->enableAnnotationMapping()
+            ->addDefaultDoctrineAnnotationReader()
+            ->getValidator();
 
         // Création du schema de la base de données
         $schemaTool = new SchemaTool($this->entityManager);
@@ -68,6 +74,121 @@ class CreerAdherentTest extends TestCase
         $this->assertNotNull($adherent);
         $this->assertEquals("Charles",$adherent->getPrenom());
         $this->assertEquals("Leclerc",$adherent->getNom());
-
     }
+
+    #[test]
+    public function creerAdherent_PrenomVide_Violation()
+    {
+        // Arrange
+        $requete = new CreerAdherentRequete("", "Leclerc", "charles@test.fr");
+        $creerAdherent = new CreerAdherent($this->entityManager, $this->generateur, $this->validateur);
+
+        // Act
+        $resultat = $creerAdherent->execute($requete);
+
+        // Assert
+        $violations = $this->validateur->validate($requete);
+        foreach ($violations as $violation) {
+            $resultat = $violation->getMessage();
+            $repository = $this->entityManager->getRepository(Adherent::class);
+            $this->assertEquals("Le prénom est obligatoire", $resultat);
+        }
+    }
+    #[test]
+    public function creerAdherent_NomVide_Violation()
+    {
+        // Arrange
+        $requete = new CreerAdherentRequete("Charles", "", "charles@test.fr");
+        $creerAdherent = new CreerAdherent($this->entityManager, $this->generateur, $this->validateur);
+
+        // Act
+        $resultat = $creerAdherent->execute($requete);
+
+        // Assert
+        $violations = $this->validateur->validate($requete);
+        foreach ($violations as $violation) {
+            $resultat = $violation->getMessage();
+            $repository = $this->entityManager->getRepository(Adherent::class);
+            $this->assertEquals("Le nom est obligatoire",$resultat);
+        }
+    }
+
+    #[test]
+    public function creerAdherent_EmailVide_Violation()
+    {
+        // Arrange
+        $requete = new CreerAdherentRequete("Charles", "Leclerc", "");
+        $creerAdherent = new CreerAdherent($this->entityManager, $this->generateur, $this->validateur);
+
+        // Act
+        $resultat = $creerAdherent->execute($requete);
+
+        // Assert
+        $violations = $this->validateur->validate($requete);
+        foreach ($violations as $violation) {
+            $resultat = $violation->getMessage();
+            $repository = $this->entityManager->getRepository(Adherent::class);
+            $this->assertEquals("L'email est obligatoire",$resultat);
+        }
+    }
+
+    #[test]
+    public function creerAdherent_EmailIncorrrect_Violation()
+    {
+        // Arrange
+        $requete = new CreerAdherentRequete("Charles", "Leclerc", "mauvaisEmail");
+        $creerAdherent = new CreerAdherent($this->entityManager, $this->generateur, $this->validateur);
+
+        // Act
+        $resultat = $creerAdherent->execute($requete);
+
+        // Assert
+        $violations = $this->validateur->validate($requete);
+        foreach ($violations as $violation) {
+            $resultat = $violation->getMessage();
+            $repository = $this->entityManager->getRepository(Adherent::class);
+            $this->assertEquals("L'email est incorrecte",$resultat);
+        }
+    }
+
+    #[test]
+    public function creerAdherent_EmailDejaExistant_Exception()
+    {
+        // Arrange
+        $requete = new CreerAdherentRequete("Charles", "Leclerc", "Charles@test.fr");
+        $requete2 = new CreerAdherentRequete("Pierre","Gasly","Charles@test.fr");
+        $creerAdherent = new CreerAdherent($this->entityManager, $this->generateur, $this->validateur);
+
+        // Act
+        $resultat1 = $creerAdherent->execute($requete);
+        $resultat2 = $creerAdherent->execute($requete2);
+
+        // Assert
+
+        $emailVerif = new EmailExistant();
+        try{
+            $emailVerif->verifier($requete,$this->entityManager);
+        }catch(\Exception $e){
+            $resultat = $e->getMessage();
+        }
+        $this->assertEquals($resultat,"Cet email est déjà utilisé");
+    }
+
+//    #[test]
+//    public function creerAdherent_EmailDejaExistant_False()
+//    {
+//        // Arrange
+//        $requete = new CreerAdherentRequete("Charles", "Leclerc", "Charles@test.fr");
+//        $requete2 = new CreerAdherentRequete("Pierre","Gasly","Pierre@test.fr");
+//        $creerAdherent = new CreerAdherent($this->entityManager, $this->generateur, $this->validateur);
+//
+//        // Act
+//        $resultat1 = $creerAdherent->execute($requete);
+//        $resultat2 = $creerAdherent->execute($requete2);
+//
+//        // Assert
+//
+//        $emailVerif = new EmailExistant();
+//        $this->assertFalse($emailVerif->verifier($requete,$this->entityManager));
+//    }
 }
