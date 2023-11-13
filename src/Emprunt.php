@@ -20,8 +20,8 @@ class Emprunt{
 
     public function empruntEnRetard() : bool{
         $date = new \DateTime();
-        $date = $date->format("d/m/Y");
-        if(!$this->empruntRendu() and strtotime($this->dateRetourEstimee->format("d/m/Y")) < strtotime($date)){
+        $date = $date->format("m/d/Y");
+        if($this->empruntRendu() == false and strtotime($this->dateRetourEstimee->format("m/d/Y")) < strtotime($date)){
             return true;
         }else{
             return false;

@@ -9,10 +9,13 @@ use PHPUnit\Logging\Exception;
 
 class EmailExistant
 {
-     public function verifier(CreerAdherentRequete $requete, EntityManagerInterface $entityManager) : bool{
+    /**
+     * @throws \Exception
+     */
+    public function verifier(CreerAdherentRequete $requete, EntityManagerInterface $entityManager) : bool{
          $repository =  $entityManager->getRepository(\App\Adherent::class);
          $findMail = $repository->findOneBy(["mail" => $requete->mail]);
-         if ($findMail == null) {
+         if ($findMail !== null) {
             throw new \Exception("Cet email est déjà utilisé");
          }else{
              return true;
