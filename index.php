@@ -9,7 +9,7 @@ require_once "vendor/autoload.php";
 require "bootstrap.php";
 
 
-if($_POST["prenom"]){
+if(isset($_POST) and $_POST){
 
     // Création du générateur
     $generateur = new GenerateurNumeroAdherent();
@@ -19,9 +19,13 @@ if($_POST["prenom"]){
         ->addDefaultDoctrineAnnotationReader()
         ->getValidator();
 
-    $requete = new \App\UserStories\CreerAdherent\CreerAdherentRequete($_POST["prenom"],$_POST["nom"],$_POST["mail"]);
-    $creerAdherent = new \App\UserStories\CreerAdherent\CreerAdherent($entityManager,$generateur,$validateur);
-    $creerAdherent->execute($requete);
+    try {
+        $requete = new \App\UserStories\CreerAdherent\CreerAdherentRequete($_POST["prenom"],$_POST["nom"],$_POST["mail"]);
+        $creerAdherent = new \App\UserStories\CreerAdherent\CreerAdherent($entityManager, $generateur, $validateur);
+        $creerAdherent->execute($requete);
+    }catch (Exception $e){
+        $erreur = $e->getMessage();
+    }
 }
 
 ?>
@@ -50,5 +54,9 @@ if($_POST["prenom"]){
 
         <input type="submit" value="Créer">
     </form>
+
+<?php if(isset($erreur)){ ?>
+    <p> <?= $erreur ?> </p>
+<?php } ?>
 </body>
 </html>
