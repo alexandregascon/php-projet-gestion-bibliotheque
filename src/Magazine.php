@@ -2,15 +2,18 @@
 
 namespace App;
 
-class Magazine extends \App\Medias{
-    private string $num;
-    private \DateTime $datePublication;
-    private int $dureeEmprunt;
+use Doctrine\ORM\Mapping as ORM;
 
-    public function __construct()
+#[ORM\Entity]
+class Magazine extends \App\Medias{
+    #[ORM\Column(type: "string")]
+    private string $num;
+    #[ORM\Column(type: "datetime")]
+    private \DateTime $datePublication;
+
+    public function __construct(string $titre,string $statut,\DateTime $dateCreation,int $dureeEmprunt)
     {
-        parent::__construct();
-        $this->dureeEmprunt = 10;
+        parent::__construct($titre,$statut,$dateCreation,$dureeEmprunt);
     }
 
     /**

@@ -2,23 +2,38 @@
 
 namespace App;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "type",type: "string")]
+#[ORM\DiscriminatorMap(["magazine" => "Magazine", "livre" => "Livre", "bluray" => "BluRay"])]
 abstract class Medias{
 
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     protected int $id;
+    #[ORM\Column(type: "string")]
     protected string $titre;
+    #[ORM\Column(type: "string")]
     protected string $statut;
+    #[ORM\Column(type: "datetime")]
     protected \DateTime $dateCreation;
+    #[ORM\Column(type: "integer")]
+    protected int $dureeEmprunt;
 
     /**
      * @param string $titre
      * @param string $statut
      * @param \DateTime $dateCreation
      */
-    public function __construct(string $titre, string $statut, \DateTime $dateCreation)
+    public function __construct(string $titre, string $statut, \DateTime $dateCreation, int $dureeEmprunt)
     {
         $this->titre = $titre;
         $this->statut = $statut;
         $this->dateCreation = $dateCreation;
+        $this->dureeEmprunt = $dureeEmprunt;
     }
 
 
@@ -77,6 +92,23 @@ abstract class Medias{
     {
         $this->dateCreation = $dateCreation;
     }
+
+    /**
+     * @return int
+     */
+    public function getDureeEmprunt(): int
+    {
+        return $this->dureeEmprunt;
+    }
+
+    /**
+     * @param int $dureeEmprunt
+     */
+    public function setDureeEmprunt(int $dureeEmprunt): void
+    {
+        $this->dureeEmprunt = $dureeEmprunt;
+    }
+
 
 
 

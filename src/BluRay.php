@@ -6,12 +6,10 @@ class BluRay extends \App\Medias{
     private string $realisateur;
     private string $duree;
     private string $anneeSortie;
-    private int $dureeEmprunt;
 
-    public function __construct()
+    public function __construct(string $titre,string $statut,\DateTime $dateCreation,int $dureeEmprunt)
     {
-        parent::__construct();
-        $this->dureeEmprunt = 15;
+        parent::__construct($titre,$statut,$dateCreation,$dureeEmprunt);
     }
 
     /**

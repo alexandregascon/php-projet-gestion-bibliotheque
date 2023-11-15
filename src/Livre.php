@@ -3,17 +3,20 @@
 namespace App;
 
 use App\Medias;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
 class Livre extends Medias{
+    #[ORM\Column(type: "string")]
     private string $isbn;
+    #[ORM\Column(type: "string")]
     private string $auteur;
+    #[ORM\Column(type: "integer")]
     private int $nbPages;
-    private int $dureeEmprunt;
 
-    public function __construct()
+    public function __construct(string $titre,string $statut,\DateTime $dateCreation,int $dureeEmprunt)
     {
-        parent::__construct();
-        $this->dureeEmprunt = 21;
+        parent::__construct($titre,$statut,$dateCreation,$dureeEmprunt);
     }
 
     /**
