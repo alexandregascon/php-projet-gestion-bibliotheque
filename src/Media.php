@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type",type: "string")]
 #[ORM\DiscriminatorMap(["magazine" => "Magazine", "livre" => "Livre", "bluray" => "BluRay"])]
-abstract class Medias{
+abstract class Media{
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,17 +23,8 @@ abstract class Medias{
     #[ORM\Column(type: "integer")]
     protected int $dureeEmprunt;
 
-    /**
-     * @param string $titre
-     * @param string $statut
-     * @param \DateTime $dateCreation
-     */
-    public function __construct(string $titre, string $statut, \DateTime $dateCreation, int $dureeEmprunt)
+    public function __construct()
     {
-        $this->titre = $titre;
-        $this->statut = $statut;
-        $this->dateCreation = $dateCreation;
-        $this->dureeEmprunt = $dureeEmprunt;
     }
 
 
@@ -62,9 +53,9 @@ abstract class Medias{
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getStatut(): string
+    public function getStatut(): int
     {
         return $this->statut;
     }

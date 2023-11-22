@@ -5,7 +5,7 @@ namespace App;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-class Magazine extends \App\Medias{
+class Magazine extends \App\Media{
     #[ORM\Column(type: "string")]
     private string $num;
     #[ORM\Column(type: "datetime")]

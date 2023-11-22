@@ -2,7 +2,7 @@
 
 namespace App;
 
-class BluRay extends \App\Medias{
+class BluRay extends \App\Media{
     private string $realisateur;
     private string $duree;
     private string $anneeSortie;

@@ -8,7 +8,7 @@ class Emprunt{
     private \DateTime $dateRetourEstimee;
     private ?\DateTime $dateRetour;
     private Adherent $adherent;
-    private \App\Medias $media;
+    private \App\Media $media;
 
     public function __construct()
     {
@@ -109,17 +109,17 @@ class Emprunt{
     }
 
     /**
-     * @return \App\Medias
+     * @return \App\Media
      */
-    public function getMedia(): \App\Medias
+    public function getMedia(): \App\Media
     {
         return $this->media;
     }
 
     /**
-     * @param \App\Medias $media
+     * @param \App\Media $media
      */
-    public function setMedia(\App\Medias $media): void
+    public function setMedia(\App\Media $media): void
     {
         $this->media = $media;
     }
