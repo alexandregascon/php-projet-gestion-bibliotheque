@@ -6,15 +6,16 @@ require "bootstrap.php";
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Console\Helper\Table;
 
 // Définir les commandes
 
 $app = new \Silly\Application();
 
-$app->command("showNewMedias",function(SymfonyStyle $io) use ($entityManager) {
+$app->command("showNewMedias",function(SymfonyStyle $io, OutputInterface $output) use ($entityManager) {
     $io->title("Liste des nouveaux médias");
     $medias = $entityManager->getRepository(\App\Media::class)->findBy(["statut"=>"Nouveau"]);
-        $io->table(["1","2"],[$medias]);
+        $table = new Table($output);
 });
 
 
