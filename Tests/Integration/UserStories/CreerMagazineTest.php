@@ -72,7 +72,7 @@ class CreerMagazineTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_TitreVide_Violation()
+    public function creerMagazine_TitreVide_Violation()
     {
         // Arrange
         $requete = new CreerMagazineRequete("N°124", "", new \DateTime(),new \DateTime());
@@ -84,7 +84,7 @@ class CreerMagazineTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_NumVide_Violation()
+    public function creerMagazine_NumVide_Violation()
     {
         // Arrange
         $requete = new CreerMagazineRequete("", "Test", new \DateTime(),new \DateTime());
@@ -97,7 +97,7 @@ class CreerMagazineTest extends TestCase
 
 
     #[test]
-    public function creerAdherent_NumDejaExistant_Exception()
+    public function creerMagazine_NumDejaExistant_Exception()
     {
         // Arrange
         $requete = new CreerMagazineRequete("N°125", "Test1", new \DateTime(),new \DateTime());
