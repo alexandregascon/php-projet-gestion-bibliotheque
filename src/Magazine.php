@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Magazine extends \App\Media{
     #[ORM\Column(type: "string")]
     private string $num;
-    #[ORM\Column(type: "datetime")]
+    #[ORM\Column(type: "date")]
     private \DateTime $datePublication;
 
     public function __construct()

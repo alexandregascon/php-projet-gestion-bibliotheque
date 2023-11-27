@@ -2,14 +2,23 @@
 
 namespace App;
 
-class BluRay extends \App\Media{
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+class BluRay extends Media{
+    #[Column(type: Types::STRING,length: 80)]
     private string $realisateur;
+    #[Column(type: Types::STRING,length: 80)]
     private string $duree;
+    #[Column(type: Types::STRING,length: 4)]
     private string $anneeSortie;
 
-    public function __construct(string $titre,string $statut,\DateTime $dateCreation,int $dureeEmprunt)
+    public function __construct()
     {
-        parent::__construct($titre,$statut,$dateCreation,$dureeEmprunt);
+        parent::__construct();
     }
 
     /**
@@ -59,23 +68,5 @@ class BluRay extends \App\Media{
     {
         $this->anneeSortie = $anneeSortie;
     }
-
-    /**
-     * @return int
-     */
-    public function getDureeEmprunt(): int
-    {
-        return $this->dureeEmprunt;
-    }
-
-    /**
-     * @param int $dureeEmprunt
-     */
-    public function setDureeEmprunt(int $dureeEmprunt): void
-    {
-        $this->dureeEmprunt = $dureeEmprunt;
-    }
-
-
 
 }

@@ -22,7 +22,7 @@ abstract class Media{
     protected string $titre;
     #[Column(type: Types::STRING,length: 80)]
     protected string $statut;
-    #[Column(type: "datetime")]
+    #[Column(type: "date")]
     protected \DateTime $dateCreation;
     #[Column(type: Types::INTEGER)]
     protected int $dureeEmprunt;
