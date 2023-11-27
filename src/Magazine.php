@@ -11,9 +11,9 @@ class Magazine extends \App\Media{
     #[ORM\Column(type: "datetime")]
     private \DateTime $datePublication;
 
-    public function __construct(string $titre,string $statut,\DateTime $dateCreation,int $dureeEmprunt)
+    public function __construct()
     {
-        parent::__construct($titre,$statut,$dateCreation,$dureeEmprunt);
+        parent::__construct();
     }
 
     /**
@@ -46,22 +46,6 @@ class Magazine extends \App\Media{
     public function setDatePublication(\DateTime $datePublication): void
     {
         $this->datePublication = $datePublication;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDureeEmprunt(): int
-    {
-        return $this->dureeEmprunt;
-    }
-
-    /**
-     * @param int $dureeEmprunt
-     */
-    public function setDureeEmprunt(int $dureeEmprunt): void
-    {
-        $this->dureeEmprunt = $dureeEmprunt;
     }
 
 
