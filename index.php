@@ -23,6 +23,12 @@ if(isset($_POST) and $_POST){
         $requete = new \App\UserStories\CreerAdherent\CreerAdherentRequete($_POST["prenom"],$_POST["nom"],$_POST["mail"]);
         $creerAdherent = new \App\UserStories\CreerAdherent\CreerAdherent($entityManager, $generateur, $validateur);
         $creerAdherent->execute($requete);
+        $requete2 = new \App\UserStories\CreerMagazine\CreerMagazineRequete("N°126","TestMagazine 2",New DateTime(),new DateTime());
+        $creerMagazine = new \App\UserStories\CreerMagazine\CreerMagasine($entityManager,$validateur);
+        $creerMagazine->execute($requete2);
+        $requete3 = new \App\UserStories\CreerLivre\CreerLivreRequete("123-456-778","Leclerc",210,"TestLivre 2",new DateTime());
+        $creerLivre = new \App\UserStories\CreerLivre\CreerLivre($entityManager,$validateur);
+        $creerLivre->execute($requete3);
     }catch (Exception $e){
         $erreur = $e->getMessage();
     }
