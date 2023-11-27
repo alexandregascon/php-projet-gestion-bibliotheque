@@ -82,7 +82,7 @@ class CreerLivreTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_TitreVide_Violation()
+    public function creerLivre_TitreVide_Violation()
     {
         // Arrange
         $requete = new CreerLivreRequete("123-456-888", "Leclerc", 120,"",new \DateTime());
@@ -94,7 +94,7 @@ class CreerLivreTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_IsbnVide_Violation()
+    public function creerLivre_IsbnVide_Violation()
     {
         // Arrange
         $requete = new CreerLivreRequete("", "Leclerc", 120,"Test",new \DateTime());
@@ -106,7 +106,7 @@ class CreerLivreTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_AuteurVide_Violation()
+    public function creerLivre_AuteurVide_Violation()
     {
         // Arrange
         $requete = new CreerLivreRequete("123-455-555", "", 120,"Test",new \DateTime());
@@ -118,7 +118,7 @@ class CreerLivreTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_IsbnDejaExistant_Exception()
+    public function creerLivre_IsbnDejaExistant_Exception()
     {
         // Arrange
         $requete = new CreerLivreRequete("123-456-789", "Leclerc", 120,"Test1",new \DateTime());
