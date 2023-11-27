@@ -2,7 +2,11 @@
 
 namespace App;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 
 #[ORM\Entity]
 #[ORM\InheritanceType("JOINED")]
@@ -10,17 +14,17 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorMap(["magazine" => "Magazine", "livre" => "Livre", "bluray" => "BluRay"])]
 abstract class Media{
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[Id]
+    #[GeneratedValue]
+    #[Column(type: Types::INTEGER)]
     protected int $id;
-    #[ORM\Column(type: "string")]
+    #[Column(type: Types::STRING,length: 80)]
     protected string $titre;
-    #[ORM\Column(type: "string")]
+    #[Column(type: Types::STRING,length: 80)]
     protected string $statut;
-    #[ORM\Column(type: "datetime")]
+    #[Column(type: "datetime")]
     protected \DateTime $dateCreation;
-    #[ORM\Column(type: "integer")]
+    #[Column(type: Types::INTEGER)]
     protected int $dureeEmprunt;
 
     public function __construct()

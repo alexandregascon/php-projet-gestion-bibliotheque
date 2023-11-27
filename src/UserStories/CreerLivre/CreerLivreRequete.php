@@ -32,8 +32,11 @@ class CreerLivreRequete
     public \DateTime $dateCreation;
 
     /**
+     * @param string $isbn
      * @param string $auteur
      * @param int $nbPages
+     * @param string $titre
+     * @param \DateTime $dateCreation
      */
     public function __construct(string $isbn,string $auteur,int $nbPages, string $titre, \DateTime $dateCreation)
     {

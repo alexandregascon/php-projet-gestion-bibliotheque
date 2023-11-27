@@ -8,6 +8,7 @@ use App\Adherent;
 use App\Livre;
 use App\Services\EmailExistant;
 use App\Services\GenerateurNumeroAdherent;
+use App\Services\IsbnExistant;
 use App\Services\NumeroExistant;
 use App\UserStories\CreerAdherent\CreerAdherent;
 use App\UserStories\CreerAdherent\CreerAdherentRequete;
@@ -79,4 +80,57 @@ class CreerLivreTest extends TestCase
         $this->assertEquals("123-456-789",$livre->getIsbn());
         $this->assertEquals("Pierre",$livre->getAuteur());
     }
+
+    #[test]
+    public function creerAdherent_TitreVide_Violation()
+    {
+        // Arrange
+        $requete = new CreerLivreRequete("123-456-888", "Leclerc", 120,"",new \DateTime());
+        $creerLivre = new CreerLivre($this->entityManager, $this->validateur);
+
+        // Act
+        $this->expectException(\Exception::class);
+        $resultat = $creerLivre->execute($requete);
+    }
+
+    #[test]
+    public function creerAdherent_IsbnVide_Violation()
+    {
+        // Arrange
+        $requete = new CreerLivreRequete("", "Leclerc", 120,"Test",new \DateTime());
+        $creerLivre = new CreerLivre($this->entityManager, $this->validateur);
+
+        // Act
+        $this->expectException(\Exception::class);
+        $resultat = $creerLivre->execute($requete);
+    }
+
+    #[test]
+    public function creerAdherent_AuteurVide_Violation()
+    {
+        // Arrange
+        $requete = new CreerLivreRequete("123-455-555", "", 120,"Test",new \DateTime());
+        $creerLivre = new CreerLivre($this->entityManager, $this->validateur);
+
+        // Act
+        $this->expectException(\Exception::class);
+        $resultat = $creerLivre->execute($requete);
+    }
+
+    #[test]
+    public function creerAdherent_IsbnDejaExistant_Exception()
+    {
+        // Arrange
+        $requete = new CreerLivreRequete("123-456-789", "Leclerc", 120,"Test1",new \DateTime());
+        $requete2 = new CreerLivreRequete("123-456-789", "Gasly", 130,"Test2",new \DateTime());
+        $creerLivre = new CreerLivre($this->entityManager, $this->validateur);
+
+        // Act
+        $this->expectException(\Exception::class);
+        $resultat1 = $creerLivre->execute($requete);
+        $isbnVerif = new IsbnExistant();
+        $isbnVerif->verifier($requete2,$this->entityManager);
+        $resultat2 = $creerLivre->execute($requete2);
+    }
+
 }

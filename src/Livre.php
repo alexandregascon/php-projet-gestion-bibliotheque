@@ -3,15 +3,17 @@
 namespace App;
 
 use App\Media;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
 
 #[ORM\Entity]
 class Livre extends Media{
-    #[ORM\Column(type: "string")]
+    #[Column(type: Types::STRING,length: 80)]
     private string $isbn;
-    #[ORM\Column(type: "string")]
+    #[Column(type: Types::STRING,length: 80)]
     private string $auteur;
-    #[ORM\Column(type: "integer")]
+    #[Column(type: Types::INTEGER)]
     private int $nbPages;
 
     public function __construct()
