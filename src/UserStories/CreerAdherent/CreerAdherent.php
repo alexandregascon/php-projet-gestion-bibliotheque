@@ -40,8 +40,12 @@ class CreerAdherent
     {
 
         // Valider les données en entrées (de la requête)
-        if (count($this->validateur->validate($requete)) > 0) {
-            throw new Exception("Une ou plusieures informations invalide(s)");
+        $erreurs = $this->validateur->validate($requete);
+        if (count($erreurs) > 0) {
+            foreach ($erreurs as $erreur){
+                $resultat[] = $erreur->getMessage();
+            }
+            throw new \Exception(implode("<br>",$resultat));
         }
 
         // Vérifier que l'email n'existe pas déjà

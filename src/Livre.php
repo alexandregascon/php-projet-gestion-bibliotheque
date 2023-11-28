@@ -85,6 +85,9 @@ class Livre extends Media{
         $this->dureeEmprunt = $dureeEmprunt;
     }
 
-
+    public function getType(): string
+    {
+        return strtolower(__CLASS__);
+    }
 
 }

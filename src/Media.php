@@ -31,6 +31,7 @@ abstract class Media{
     {
     }
 
+    abstract function getType():string;
 
     /**
      * @return int

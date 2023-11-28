@@ -48,6 +48,9 @@ class Magazine extends \App\Media{
         $this->datePublication = $datePublication;
     }
 
-
+    public function getType(): string
+    {
+        return strtolower(__CLASS__);
+    }
 
 }

@@ -69,4 +69,9 @@ class BluRay extends Media{
         $this->anneeSortie = $anneeSortie;
     }
 
+    public function getType(): string
+    {
+        return strtolower(__CLASS__);
+    }
+
 }
