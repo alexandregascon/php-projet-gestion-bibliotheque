@@ -58,9 +58,9 @@ abstract class Media{
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStatut(): int
+    public function getStatut(): string
     {
         return $this->statut;
     }

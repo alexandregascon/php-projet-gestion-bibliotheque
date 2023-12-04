@@ -18,10 +18,11 @@ $app->command("biblio:get:NewMedias",function(SymfonyStyle $io, OutputInterface 
     $listeMedia = new App\UserStories\ListerNouveauxMedias\ListerNouveauxMedias($entityManager);
     $medias = $listeMedia->execute();
     $table = new Table($output);
-    $table2 = new Table($output);
-    $table->setHeaders(["test1","test2","test3"]);
-    $table->setRows([]);
-    $table2->render();
+    $table->setHeaders(["test1","test2","test3","test4","test5"]);
+    foreach ($medias as $media) {
+        $table->addRow([$media["id"],$media["titre"],$media["statut"],$media["dateCreation"]->format("d/m/Y"),$media["type"]]);
+    }
+    $table->render();
 });
 
 
