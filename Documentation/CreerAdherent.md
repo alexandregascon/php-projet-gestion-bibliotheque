@@ -45,5 +45,9 @@ Elles sont également faites avec les fichiers :
 vérifie que le mail de l'adherent n'existe pas déjà dans la base de données.
 - [NumeroExistant.php](../src/Services/NumeroExistant.php) qui vérifie si le 
 numéro générer aléatoirement par la classe 
-[GenerateurNumeroAdherent.php](../src/Services/GenerateurNumeroAdherent.php) 
+- [GenerateurNumeroAdherent.php](../src/Services/GenerateurNumeroAdherent.php) 
 n'existe pas déja dans la base de données
+
+## Comment utiliser la User Story
+
+Des tests d'intégration ou unitaire sont disponibles avec la commande `.\vendor\bin\phpunit Tests --testdox --color=always`

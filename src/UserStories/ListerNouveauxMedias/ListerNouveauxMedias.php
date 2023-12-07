@@ -23,7 +23,11 @@ class ListerNouveauxMedias
         foreach ($medias as $media){
             $resultat[] = ["id"=>$media->getId(),"titre"=>$media->getTitre(),"statut"=>$media->getStatut(),"dateCreation"=>$media->getDateCreation(),"type"=>$media->getType()];
         }
-        return $resultat;
+        if ($resultat){
+            return $resultat;
+        }else{
+            return null;
+        }
     }
 
 }

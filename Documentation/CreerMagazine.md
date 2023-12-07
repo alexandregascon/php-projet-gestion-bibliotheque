@@ -33,6 +33,8 @@ La création du magazine se fait dans le fichier [CreerMagazine.php](../src/User
 Une commande a été créée dans le fichier [app.php](../style/app.php) pour
 tester la création d'un magazine avec le commande `php .\style\app.php biblio:add:Magazine`.
 
+Des tests d'intégration ou unitaire sont disponibles avec la commande `.\vendor\bin\phpunit Tests --testdox --color=always`
+
 ## Les Constantes
 
 Le fichier [StatutMedia.php](../src/StatutMedia.php) permet de gérer via des constantes les statuts possibles pour un media
