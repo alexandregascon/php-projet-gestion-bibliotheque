@@ -16,8 +16,8 @@ class CreerLivreRequete
     )]
     public string $auteur;
 
-    #[Assert\NotBlank (
-        message : "Le nombre de pages est obligatoire"
+    #[Assert\Positive (
+        message : "Le nombre de pages doit être positif"
     )]
     public int $nbPages;
 

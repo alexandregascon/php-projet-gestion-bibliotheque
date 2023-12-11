@@ -6,6 +6,7 @@ use App\Livre;
 use App\Magazine;
 use App\Services\IsbnExistant;
 use App\Services\NumMagazineExistant;
+use App\StatutMedia;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Logging\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -60,7 +61,7 @@ class CreerMagasine
         $magazine->setTitre($requete->titre);
         $magazine->setDateCreation($requete->dateCreation);
         $magazine->setDatePublication($requete->datePublication);
-        $magazine->setStatut("Nouveau");
+        $magazine->setStatut(StatutMedia::STATUT_NOUVEAU);
         $magazine->setDureeEmprunt(10);
         // Enregistrer le livre en base de données
         $this->entityManager->persist($magazine);

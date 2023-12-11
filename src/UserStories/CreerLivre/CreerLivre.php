@@ -35,9 +35,9 @@ class CreerLivre
         $erreurs = $this->validateur->validate($requete);
         if (count($erreurs) > 0) {
             foreach ($erreurs as $erreur) {
-                $resultat = [$erreur->getMessage()];
+                $resultat[] = $erreur->getMessage();
             }
-            throw new \Exception(implode("<br>", $resultat));
+            throw new \Exception(implode("SE", $resultat));
         }
 
         // Vérifier que l'isbn n'existe pas déjà
