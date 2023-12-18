@@ -5,6 +5,7 @@ namespace App\Tests\Unitaires;
 use App\Emprunt;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Logging\Exception;
 
 class ClasseEmpruntTest extends TestCase
 {
@@ -39,8 +40,9 @@ class ClasseEmpruntTest extends TestCase
     {
         $emprunt4 = new Emprunt();
         $emprunt4->setDateRetourEstimee("01/06/2050");
-        $resultat4 = $emprunt4->empruntEnRetard();
-        $this->assertFalse($resultat4);
+        $this->expectException(\Exception::class);
+        $emprunt4->empruntEnRetard();
+
     }
 
     #[test]
@@ -49,8 +51,8 @@ class ClasseEmpruntTest extends TestCase
         $emprunt5 = new Emprunt();
         $emprunt5->setDateRetour("01/01/2020");
         $emprunt5->setDateRetourEstimee("01/06/2020");
-        $resultat5 = $emprunt5->empruntEnRetard();
-        $this->assertFalse($resultat5);
+        $this->expectException(\Exception::class);
+        $emprunt5->empruntEnRetard();
     }
 
 }

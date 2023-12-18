@@ -2,16 +2,36 @@
 
 namespace App;
 
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use PHPUnit\Logging\Exception;
+
+#[Entity]
 class Emprunt{
+    #[Id]
+    #[Column(type: Types::INTEGER)]
+    #[GeneratedValue]
     private int $idEmprunt;
+    #[Column(type: "datetime")]
     private \DateTime $dateEmprunt;
+    #[Column(type: "datetime")]
     private \DateTime $dateRetourEstimee;
+    #[Column(type: "datetime")]
     private ?\DateTime $dateRetour;
     private Adherent $adherent;
     private \App\Media $media;
 
-    public function __construct()
+    public function __construct(Media $media, Adherent $adherent)
     {
+        $this->dateEmprunt = new \DateTime();
+        $this->media = $media;
+        $date = $this->dateEmprunt;
+        $nbJoursEmprunt = $this->media->getDureeEmprunt();
+        $this->dateRetourEstimee = $date->modify("+ $nbJoursEmprunt days");
+        $this->adherent = $adherent;
     }
 
     public function empruntRendu() : bool{
@@ -24,7 +44,7 @@ class Emprunt{
         if($this->empruntRendu() == false and strtotime($this->dateRetourEstimee->format("m/d/Y")) < strtotime($date)){
             return true;
         }else{
-            return false;
+            throw new Exception("L'emprunt est en retard");
         }
     }
 
