@@ -2,9 +2,12 @@
 
 namespace App\Tests\Unitaires;
 
+use App\Adherent;
 use App\Emprunt;
+use App\Livre;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestSize\Medium;
 use PHPUnit\Logging\Exception;
 
 class ClasseEmpruntTest extends TestCase

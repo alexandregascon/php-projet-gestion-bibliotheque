@@ -7,7 +7,10 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToOne;
 use PHPUnit\Logging\Exception;
+use Symfony\Component\Validator\Constraints\IsNull;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 #[Entity]
 class Emprunt{
@@ -15,23 +18,19 @@ class Emprunt{
     #[Column(type: Types::INTEGER)]
     #[GeneratedValue]
     private int $idEmprunt;
-    #[Column(type: "datetime")]
+    #[Column(name: "date",type: "datetime")]
     private \DateTime $dateEmprunt;
     #[Column(type: "datetime")]
     private \DateTime $dateRetourEstimee;
-    #[Column(type: "datetime")]
-    private ?\DateTime $dateRetour;
+    #[Column(type: "datetime",nullable: true)]
+    private ?\DateTime $dateRetour = null;
+    #[ManyToOne(targetEntity: Adherent::class)]
     private Adherent $adherent;
+    #[ManyToOne(targetEntity: Media::class)]
     private \App\Media $media;
 
-    public function __construct(Media $media, Adherent $adherent)
+    public function __construct()
     {
-        $this->dateEmprunt = new \DateTime();
-        $this->media = $media;
-        $date = $this->dateEmprunt;
-        $nbJoursEmprunt = $this->media->getDureeEmprunt();
-        $this->dateRetourEstimee = $date->modify("+ $nbJoursEmprunt days");
-        $this->adherent = $adherent;
     }
 
     public function empruntRendu() : bool{

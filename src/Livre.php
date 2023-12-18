@@ -69,22 +69,6 @@ class Livre extends Media{
         $this->nbPages = $nbPages;
     }
 
-    /**
-     * @return int
-     */
-    public function getDureeEmprunt(): int
-    {
-        return $this->dureeEmprunt;
-    }
-
-    /**
-     * @param int $dureeEmprunt
-     */
-    public function setDureeEmprunt(int $dureeEmprunt): void
-    {
-        $this->dureeEmprunt = $dureeEmprunt;
-    }
-
     public function getType(): string
     {
         $reflect=new \ReflectionClass($this);

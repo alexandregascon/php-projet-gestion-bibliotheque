@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Id;
 #[Entity]
 class Adherent{
     #[Id]
-    #[Column(type: Types::INTEGER)]
+    #[Column(name: "id",type: Types::INTEGER)]
     #[GeneratedValue]
     private int $idAdherent;
     #[Column(type: Types::STRING, length: 9)]

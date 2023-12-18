@@ -116,4 +116,30 @@ $app->command("biblio:add:Livre",function(SymfonyStyle $io) use ($entityManager)
     $io->success("Création dans la base de données effectuée");
 });
 
+$app->command("biblio:add:Emprunt",function(SymfonyStyle $io) use ($entityManager) {
+
+    $io->title("Détail de l'emprunt : ");
+
+    $media = $io->ask("Saisir l'id du média : ");
+    if($media == null){
+        $media = -1;
+    }
+
+    $adherent = $io->ask("Saisir le numéro de l'adhérent : ");
+    if($adherent == null){
+        $adherent = "Erreur";
+    }
+
+    $emprunterMedia = new \App\UserStories\EmprunterMedia\EmprunterMedia($entityManager);
+
+    try{
+        $emprunterMedia->execute($media,$adherent);
+    }catch(\Exception $e){
+        $erreurs = $e->getMessage();
+        $io->error($erreurs);
+        dd();
+    }
+    $io->success("Création dans la base de données effectuée");
+});
+
 $app->run();
