@@ -136,7 +136,7 @@ $app->command("biblio:add:Emprunt",function(SymfonyStyle $io) use ($entityManage
         $emprunterMedia->execute($media,$adherent);
     }catch(\Exception $e){
         $erreurs = $e->getMessage();
-        $io->error($erreurs);
+        $io->error(explode("SE",$erreurs));
         dd();
     }
     $io->success("Création dans la base de données effectuée");

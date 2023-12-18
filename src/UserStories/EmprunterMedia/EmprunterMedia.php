@@ -21,33 +21,49 @@ class EmprunterMedia
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function execute(int $idMedia, string $numAdherent){
         $media = $this->entityManager->getRepository(\App\Media::class)->findOneBy(["id"=>$idMedia]);
         $adherent = $this->entityManager->getRepository(Adherent::class)->findOneBy(["numAdherent"=>$numAdherent]);
-        if($media and $adherent){
+        $erreurs = [];
+        if(!$media){
+            $erreurs[] = "Ce média n'existe pas";
+        }else{
+            if($media->getStatut() !== StatutMedia::STATUT_DISPONIBLE){
+                $erreurs[] = "Le statut de ce média n'est pas à Disponible";
+            }
+        }
+
+        if(!$adherent){
+            $erreurs[] = "Cet adherent n'existe pas";
+        }else{
             $interval = date_diff($adherent->getDateAdhesion(),new \DateTime());
             $interval = $interval->format("%y");
-            if($media->getStatut() == StatutMedia::STATUT_DISPONIBLE and $interval == 0){
-                $emprunt = new Emprunt();
-                $emprunt->setMedia($media);
-                $emprunt->setAdherent($adherent);
-                $date = new \DateTime();
-                $date = $date->format("d/m/Y");
-                $emprunt->setDateEmprunt($date);
-                $dateRetourEstimee = \DateTime::createFromFormat("d/m/Y",$date);
-                $dureeEmprunt = $media->getDureeEmprunt();
-                $dateRetourEstimee = $dateRetourEstimee->modify("+ $dureeEmprunt days");
-                $emprunt->setDateRetourEstimee($dateRetourEstimee->format("d/m/Y"));
-                $media->setStatut(StatutMedia::STATUT_EMPRUNTE);
-                $this->entityManager->persist($emprunt);
-                $this->entityManager->persist($media);
-                $this->entityManager->flush();
-                return true;
-            }else{
-                throw new Exception("Le statut de ce média n'est pas à Disponible ou l'adhésion de l'adherent n'est plus valide");
+            if($interval != 0){
+                $erreurs[] = "L'adhésion de l'adherent n'est plus valide";
             }
+        }
+
+        if (count($erreurs) > 0) {
+            throw new \Exception(implode("SE", $erreurs));
         }else{
-            throw new Exception("Ce média ou cet Adherent n'existe pas");
+            $emprunt = new Emprunt();
+            $emprunt->setMedia($media);
+            $emprunt->setAdherent($adherent);
+            $date = new \DateTime();
+            $date = $date->format("d/m/Y");
+            $emprunt->setDateEmprunt($date);
+            $dateRetourEstimee = \DateTime::createFromFormat("d/m/Y",$date);
+            $dureeEmprunt = $media->getDureeEmprunt();
+            $dateRetourEstimee = $dateRetourEstimee->modify("+ $dureeEmprunt days");
+            $emprunt->setDateRetourEstimee($dateRetourEstimee->format("d/m/Y"));
+            $media->setStatut(StatutMedia::STATUT_EMPRUNTE);
+            $this->entityManager->persist($emprunt);
+            $this->entityManager->persist($media);
+            $this->entityManager->flush();
+            return true;
         }
     }
 }
