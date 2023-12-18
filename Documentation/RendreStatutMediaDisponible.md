@@ -30,30 +30,18 @@ Le changement de statut du média est correctement enregistré dans la base de d
 
 Des messages d'erreurs explicites doivent être retournés en cas d'informations manquantes ou incorrectes
 
-[//]: # (## Comment utiliser la User Story)
+## Comment utiliser la User Story
 
-[//]: # ()
-[//]: # (La récupèration des nouveaux médias se fait via le fichier [ListerNouveauxMedias.php]&#40;../src/UserStories/ListerNouveauxMedias/ListerNouveauxMedias.php&#41; avec la méthode `execute`)
 
-[//]: # ()
-[//]: # (Une commande a été créée dans le fichier [app.php]&#40;../style/app.php&#41; pour)
+La modification du média se fait via le fichier [RendreStatutMediaDisponible.php](../src/UserStories/RendreStatutMediaDisponible/RendreStatutMediaDisponible.php) avec la méthode `execute`
 
-[//]: # (tester le listage des nouveaux médias avec le commande `php .\style\app.php biblio:get:NewMedias`.)
 
-[//]: # ()
-[//]: # (Des tests d'intégration ou unitaire sont disponibles avec la commande `.\vendor\bin\phpunit Tests --testdox --color=always`)
+Une commande a été créée dans le fichier [app.php](../style/app.php) pour
 
-[//]: # ()
-[//]: # (## Fonctions abstraites)
+tester la modification d'un média avec la commande `php .\style\app.php biblio:modify:StatutMedia`.
 
-[//]: # ()
-[//]: # (Une fonction abstraite `getType` a été créée dans chaque sous-classe de Média :)
 
-[//]: # (- [Livre.php]&#40;../src/Livre.php&#41;)
+Des tests d'intégration ou unitaire sont disponibles avec la commande `.\vendor\bin\phpunit Tests --testdox --color=always`
 
-[//]: # (- [Magazine.php]&#40;../src/Magazine.php&#41;)
 
-[//]: # (- [BluRay.php]&#40;../src/BluRay.php&#41;)
-
-[//]: # ()
-[//]: # (Elle permet de récupérer le type du média qui n'est pas récupérable directement depuis la BDD)
+Des constantes sont utilisées pour le statut du média, elles sont dans le fichier [StatutMedia.php](../src/StatutMedia.php)

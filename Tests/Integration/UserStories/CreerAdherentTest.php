@@ -79,7 +79,7 @@ class CreerAdherentTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_PrenomVide_Violation()
+    public function creerAdherent_PrenomVide_Exception()
     {
         // Arrange
         $requete = new CreerAdherentRequete("", "Leclerc", "charles@test.fr");
@@ -90,7 +90,7 @@ class CreerAdherentTest extends TestCase
         $resultat = $creerAdherent->execute($requete);
     }
     #[test]
-    public function creerAdherent_NomVide_Violation()
+    public function creerAdherent_NomVide_Exception()
     {
         // Arrange
         $requete = new CreerAdherentRequete("Charles", "", "charles@test.fr");
@@ -102,7 +102,7 @@ class CreerAdherentTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_EmailVide_Violation()
+    public function creerAdherent_EmailVide_Exception()
     {
         // Arrange
         $requete = new CreerAdherentRequete("Charles", "Leclerc", "");
@@ -114,7 +114,7 @@ class CreerAdherentTest extends TestCase
     }
 
     #[test]
-    public function creerAdherent_EmailIncorrrect_Violation()
+    public function creerAdherent_EmailIncorrrect_Exception()
     {
         // Arrange
         $requete = new CreerAdherentRequete("Charles", "Leclerc", "mauvaisEmail");

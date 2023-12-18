@@ -35,10 +35,10 @@ class CreerMagasine
         // Valider les données en entrées (de la requête)
         $erreurs = $this->validateur->validate($requete);
         if (count($erreurs) > 0) {
-            foreach ($erreurs as $erreur){
-                $resultat = [$erreur->getMessage()];
+            foreach ($erreurs as $erreur) {
+                $resultat[] = $erreur->getMessage();
             }
-            throw new \Exception(implode("<br>",$resultat));
+            throw new \Exception(implode("SE", $resultat));
         }
 
         // Vérifier que le numéro n'existe pas déjà
