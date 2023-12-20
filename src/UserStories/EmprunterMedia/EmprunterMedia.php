@@ -52,6 +52,8 @@ class EmprunterMedia
             $emprunt = new Emprunt();
             $emprunt->setMedia($media);
             $emprunt->setAdherent($adherent);
+            $numEmprunt = "EM-".random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9);
+            $emprunt->setNumEmprunt($numEmprunt);
             $date = new \DateTime();
             $date = $date->format("d/m/Y");
             $emprunt->setDateEmprunt($date);

@@ -142,4 +142,24 @@ $app->command("biblio:add:Emprunt",function(SymfonyStyle $io) use ($entityManage
     $io->success("Création dans la base de données effectuée");
 });
 
+$app->command("biblio:retourner:emprunt",function(SymfonyStyle $io) use ($entityManager) {
+    $io->title("Emprunt à retourner : ");
+
+    $emprunt = $io->ask("Saisir le numéro de l'emprunt : ");
+    if($emprunt == null){
+        $emprunt = "";
+    }
+
+    $retournerEmprunt = new \App\UserStories\RetournerEmprunt\RetournerEmprunt($entityManager);
+
+    try{
+        $retournerEmprunt->execute($emprunt);
+    }catch(\Exception $e){
+        $erreurs = $e->getMessage();
+        $io->error(explode("SE",$erreurs));
+        dd();
+    }
+    $io->success("Création dans la base de données effectuée");
+});
+
 $app->run();

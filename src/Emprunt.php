@@ -18,7 +18,9 @@ class Emprunt{
     #[Column(type: Types::INTEGER)]
     #[GeneratedValue]
     private int $idEmprunt;
-    #[Column(name: "date",type: "datetime")]
+    #[Column(type: "string")]
+    private string $numEmprunt;
+    #[Column(type: "datetime")]
     private \DateTime $dateEmprunt;
     #[Column(type: "datetime")]
     private \DateTime $dateRetourEstimee;
@@ -141,6 +143,22 @@ class Emprunt{
     public function setMedia(\App\Media $media): void
     {
         $this->media = $media;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumEmprunt(): string
+    {
+        return $this->numEmprunt;
+    }
+
+    /**
+     * @param string $numEmprunt
+     */
+    public function setNumEmprunt(string $numEmprunt): void
+    {
+        $this->numEmprunt = $numEmprunt;
     }
 
 
